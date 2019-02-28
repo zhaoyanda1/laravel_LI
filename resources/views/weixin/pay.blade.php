@@ -30,7 +30,7 @@
             success :   function(msg) {
                 if(msg.status==1000){
                     alert(msg.msg);
-                    //window.location.href='';
+                    window.location.href='/orderList';
                 }else{
                     console.log(1);
                 }
