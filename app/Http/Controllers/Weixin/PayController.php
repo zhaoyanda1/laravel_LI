@@ -59,7 +59,9 @@ class PayController extends Controller
 
         include_once('phpqrcode/phpqrcode.php');
         $url=$data->code_url;
-
+            echo $url;
+            print_r($res['o_name']);
+        exit;
         $file_name='picture/'.$res['o_name'].'.png';
         \QRcode::png($url,$file_name,'H','5','1');
         //echo '<img src="'.$file_name.'">';die;
