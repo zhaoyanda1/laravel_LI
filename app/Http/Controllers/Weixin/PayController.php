@@ -63,7 +63,7 @@ class PayController extends Controller
         $url=$data->code_url;
         $file_name='picture/'.$res['o_name'].'.png';
         \QRcode::png($url,$file_name,'H','5','1');
-        //echo '<img src="'.$file_name.'">';die;
+        echo '<img src="http://xnj.hz4155.cn/'.$file_name.'">';die;
         $data=[
             'title'=>'微信支付页面',
             'file_name'=>$file_name
