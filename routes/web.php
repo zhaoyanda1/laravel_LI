@@ -110,3 +110,7 @@ Route::get('/weixin/pay/{o_id}','Weixin\PayController@test');     //微信支付
 Route::post('/weixin/pay/notice','Weixin\PayController@notice');     //微信支付通知回调
 
 Route::any('/payShow','Weixin\PayController@payselect');
+
+//微信登录
+Route::get('/weixin/login','Weixin\WeixinController@login');        //微信登录
+Route::get('/weixin/getcode','Weixin\WeixinController@getCode');        //接收code

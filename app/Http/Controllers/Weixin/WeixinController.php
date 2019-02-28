@@ -549,4 +549,24 @@ class WeixinController extends Controller
         $this->upMaterialTest($save_file_path);
     }
 
+
+    /**
+     * 微信登录测试
+     * @return \Illuminate\Contracts\View\Factory|\Illuminate\View\View
+     */
+    public function login()
+    {
+        return view('weixin.login');
+    }
+
+    /**
+     * 接收code
+     */
+    public function getCode()
+    {
+        echo '<pre>';print_r($_GET);echo '</pre>';
+        $code = $_GET['code'];
+        echo 'code: '.$code;
+    }
+
 }
