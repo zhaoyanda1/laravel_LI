@@ -1,12 +1,24 @@
 @extends('layout.goods')
 @section('title') {{$title}}    @endsection
 @section('content')
-<img src="http://xnj.hz4155.cn/{{$file_name}}">
-{{csrf_field()}}
+
+<div id="qrcode"></div>
+
 
 <script src="{{URL::asset('/js/jquery-1.12.4.min.js')}}"></script>
+<script src="{{URL::asset('/js/qrcode.min.js')}}"></script>
 
 <script>
+    var qrcode = new QRCode('qrcode', {
+        text: "{{$url}}",
+        width: 256,
+        height: 256,
+        colorDark : '#000000',
+        colorLight : '#ffffff',
+        correctLevel : QRCode.CorrectLevel.H
+    });
+
+
     function check(){
         $.ajax({
             headers: {
