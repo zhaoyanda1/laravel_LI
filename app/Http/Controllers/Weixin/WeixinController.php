@@ -556,7 +556,10 @@ class WeixinController extends Controller
      */
     public function login()
     {
-        return view('weixin.login');
+        $data=[
+            'title'=>'微信登录页面',
+        ];
+        return view('weixin.login',$data);
     }
 
     /**
