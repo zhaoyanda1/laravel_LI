@@ -568,9 +568,55 @@ class WeixinController extends Controller
      */
     public function getCode()
     {
-        echo '<pre>';print_r($_GET);echo '</pre>';
-        $code = $_GET['code'];
-        echo 'code: '.$code;
+//        // 1 获取code
+//        $code = $_GET['code'];
+//
+//        $token_url = 'https://api.weixin.qq.com/sns/oauth2/access_token?appid=wxe24f70961302b5a5&secret=0f121743ff20a3a454e4a12aeecef4be&code='.$code.'&grant_type=authorization_code';
+//        $token_json = file_get_contents($token_url);
+//        $token_arr = json_decode($token_json,true);
+//
+//        $access_token = $token_arr['access_token'];
+//        $openid = $token_arr['openid'];
+//
+//        // 3 携带token  获取用户信息
+//        $user_info_url = 'https://api.weixin.qq.com/sns/userinfo?access_token='.$access_token.'&openid='.$openid.'&lang=zh_CN';
+//        $user_json = file_get_contents($user_info_url);
+//
+//        $user_arr = json_decode($user_json,true);
+//
+//        $unionid = $user_arr['unionid'];        // 微信用户 unionid
+//        echo '<pre>';print_r($user_arr);echo '</pre>';
+        $user_arr = [];
+        $unionid = 'oTm241U1rFq9ZgnmPx3hXhXd-wssa';
+        //4 获取unionid 查询用户信息
+        $u = WeixinUser::where(['unionid'=>$unionid])->first();
+        var_dump($u);
+        if($u){
+            //TODO 登录逻辑
+
+        }else{
+            // 添加用户表
+            $u_data = [
+                'name'  => 'wx_'.str_random(8),
+            ];
+
+            $uid = userModel::insertGetId($u_data);
+
+            //添加微信用户表
+            $wx_u_data = [
+                'uid'       => $uid,
+                'openid'    => str_random(16),
+                'add_time'  => time(),
+                //'sex'       => $user_arr['sex'],
+                //'headimgurl'    => $user_arr['headimgurl'],
+                'unionid'   => $unionid
+            ];
+
+            $wx_id = WeixinUser::insertGetId($wx_u_data);
+
+            // 登录
+        }
+
     }
 
     /**
@@ -583,15 +629,17 @@ class WeixinController extends Controller
         //计算签名
 
         $jsconfig = [
-            'appid' => env('WEIXIN_APPID_0'),        //APPID
+            'appid' => env('WEIXIN_APPID'),        //APPID
             'timestamp' => time(),
             'noncestr'    => str_random(10),
-            'sign'      => $this->wxJsConfigSign()
+            //'sign'      => $this->wxJsConfigSign()
         ];
 
+        $sign = $this->wxJsConfigSign($jsconfig);
+        $jsconfig['sign'] = $sign;
         $data = [
             'jsconfig'  => $jsconfig,
-            'title'=>'微信jssdk调试'
+            'title'=>'微信JSSDK调试'
         ];
         return view('weixin.jssdk',$data);
     }
@@ -600,11 +648,40 @@ class WeixinController extends Controller
     /**
      * 计算JSSDK sign
      */
-    public function wxJsConfigSign()
+    public function wxJsConfigSign($param)
+    {
+        $current_url = 'http://' . $_SERVER['HTTP_HOST'] . $_SERVER['REQUEST_URI'];     //当前调用 jsapi的 url
+        $ticket = $this->getJsapiTicket();
+        $str =  'jsapi_ticket='.$ticket.'&noncestr='.$param['noncestr']. '&timestamp='. $param['timestamp']. '&url='.$current_url;
+        $signature=sha1($str);
+        return $signature;
+    }
+
+
+    /**
+     * 获取jsapi_ticket
+     * @return mixed
+     */
+    public function getJsapiTicket()
     {
 
-        $sign = str_random(15);
-        return $sign;
+        //是否有缓存
+        $ticket = Redis::get($this->redis_weixin_jsapi_ticket);
+        if(!$ticket){           // 无缓存 请求接口
+            $access_token = $this->getWXAccessToken();
+            $ticket_url = 'https://api.weixin.qq.com/cgi-bin/ticket/getticket?access_token='.$access_token.'&type=jsapi';
+            $ticket_info = file_get_contents($ticket_url);
+            $ticket_arr = json_decode($ticket_info,true);
+
+            if(isset($ticket_arr['ticket'])){
+                $ticket = $ticket_arr['ticket'];
+                Redis::set($this->redis_weixin_jsapi_ticket,$ticket);
+                Redis::setTimeout($this->redis_weixin_jsapi_ticket,3600);       //设置过期时间 3600s
+            }
+        }
+        return $ticket;
+
     }
+
 
 }
