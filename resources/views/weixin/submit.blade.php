@@ -10,7 +10,7 @@
         <button id="btn3">二级按钮</button>
         <button id="btn4">克隆</button><br>
         按钮类型：<select name="btn5">
-            <option value=""></option>
+            <option value="">--请选择--</option>
             <option value="2">游戏</option>
             <option value="3">音乐</option>
             <option value="4">旅行</option>
