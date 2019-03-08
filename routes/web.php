@@ -120,5 +120,5 @@ Route::get('/weixin/jssdk/test','Weixin\WeixinController@jssdkTest');       // æ
 
 
 Route::get('/weixin/submit','Weixin\WeixinController@submit');
-Route::get('/weixin/createmenuaction','Weixin\WeixinController@createmenuaction');
+Route::post('/weixin/createmenuaction','Weixin\WeixinController@createmenuaction');
 
