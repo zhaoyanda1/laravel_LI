@@ -17,7 +17,7 @@
             <button>二级菜单按钮</button>&nbsp;&nbsp;<button class="two_btn">克隆</button>
             <div>
                 按钮类型：<select class="two_btn_type">
-                    <option value="phdp">PHPD</option>
+                    <option value="phpd">PHPD</option>
                     <option value="click">CLICK</option>
                 </select></br>
                 二级按钮名称：<input type="text" class="two_btn_name"></br>
