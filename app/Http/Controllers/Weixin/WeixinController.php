@@ -305,18 +305,13 @@ class WeixinController extends Controller
                         ],
                         [
                             "type"=>"view",
-                            "name"=>"中国天气",
-                            "url"=>"http://www.weather.com.cn/"
-                        ],
-                        [
-                            "type"=>"view",
                             "name"=>"王者官方",
                             "url"=>"https://pvp.qq.com/"
                         ],
                         [
                             "type"=>"view",
-                            "name"=>"炉石传说",
-                            "url"=>"http://hs.blizzard.cn/landing"
+                            "name"=>"LOL",
+                            "url"=>"http://lol.cn/"
                         ]
                     ]
                 ],
@@ -330,13 +325,8 @@ class WeixinController extends Controller
                         ],
                         [
                             "type"=>"view",
-                            "name"=>"掘金",
-                            "url"=>"https://juejin.im/"
-                        ],
-                        [
-                            "type"=>"view",
-                            "name"=>"码云",
-                            "url"=>"https://gitee.com/"
+                            "name"=>"七牛云",
+                            "url"=>"https://qiniuyun.com/"
                         ],
                         [
                             "type"=>"view",
@@ -378,9 +368,9 @@ class WeixinController extends Controller
         //echo '<pre>';print_r($response_arr);echo '</pre>';die;
 
         if($response_arr['errcode'] == 0){
-            echo "菜单创建成功";
+            echo "自定义菜单发布成功";
         }else{
-            echo "菜单创建失败，请重试";echo '</br>';
+            echo "自定义菜单发布失败，请重试";echo '</br>';
             echo $response_arr['errmsg'];
 
         }
