@@ -5,8 +5,8 @@
         <h2>微信</h2>
 
         <button id="btn1">一级按钮</button>
-        <input type="text">名字
-        <button id="btn2">克隆</button>
+        名字:<input type="text">
+        <button id="btn2">克隆</button><br>
         <button id="btn3">二级按钮</button>
         <button id="btn4">克隆</button><br>
         按钮类型：<select name="btn5">
@@ -14,9 +14,9 @@
             <option value="2">游戏</option>
             <option value="3">音乐</option>
             <option value="4">旅行</option>
-        </select>
-        二级按钮名字：<input type="text">
-        二级按钮url：<input type="text">
+        </select><br>
+        二级按钮名字：<input type="text"><br>
+        二级按钮url：<input type="text"><br>
         二级按钮名字key：<input type="text">
     </div>
 @endsection
