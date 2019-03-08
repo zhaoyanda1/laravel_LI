@@ -676,20 +676,24 @@ class WeixinController extends Controller
     }
 
     public function submit(){
-        $jsconfig = [
-            'appid' => env('WEIXIN_APPID'),        //APPID
-            'timestamp' => time(),
-            'noncestr'    => str_random(10),
-            //'sign'      => $this->wxJsConfigSign()
-        ];
-
-        $sign = $this->wxJsConfigSign($jsconfig);
-        $jsconfig['sign'] = $sign;
         $data = [
-            'jsconfig'=>$jsconfig,
-            'title'=>'微信'
+            'title'=>'自定义菜单'
         ];
         return view('weixin.submit',$data);
     }
 
+    public function createmenuaction(Request $request){
+        $data=$request->input();
+        $info=[
+            'button'=>$data
+        ];
+        $url = 'https://api.weixin.qq.com/cgi-bin/menu/create?access_token='.$this->getWXAccessToken();
+        $client = new GuzzleHttp\Client();
+        $r = $client->request('POST', $url, [
+            'body' => json_encode($info,JSON_UNESCAPED_UNICODE)
+        ]);
+
+        $response = json_decode($r->getBody(),true);
+        print_r($response);
+    }
 }

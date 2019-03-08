@@ -86,7 +86,7 @@
                         headers: {
                             'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                         },
-                        url:     '/weixin/createMenu',
+                        url:     '/weixin/createmenuaction',
                         type:    'post',
                         data:    top_info,
                         dataType: 'json',

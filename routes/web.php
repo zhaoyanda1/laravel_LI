@@ -118,6 +118,7 @@ Route::get('/weixin/getcode','Weixin\WeixinController@getCode');        //接收
 //微信 JSSDK
 Route::get('/weixin/jssdk/test','Weixin\WeixinController@jssdkTest');       // 测试
 
-//一级按钮
+
 Route::get('/weixin/submit','Weixin\WeixinController@submit');
+Route::get('/weixin/createmenuaction','Weixin\WeixinController@createmenuaction');
 
