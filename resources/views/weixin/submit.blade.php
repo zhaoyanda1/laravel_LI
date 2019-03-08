@@ -1,23 +1,23 @@
 @extends('layout.goods')
 
 @section('content')
-    <div class="container">
-        <h2>微信</h2>
-
-        <button id="btn1">一级按钮</button>
-        名字:<input type="text">
-        <button id="btn2">克隆</button><br>
-        <button id="btn3">二级按钮</button>
-        <button id="btn4">克隆</button><br>
-        按钮类型：<select name="btn5">
-            <option value="">--请选择--</option>
-            <option value="2">游戏</option>
-            <option value="3">音乐</option>
-            <option value="4">旅行</option>
-        </select><br>
-        二级按钮名字：<input type="text"><br>
-        二级按钮url：<input type="text"><br>
-        二级按钮名字key：<input type="text">
+    <div class="type_menu" style="margin-bottom: 20px;">
+        <p>
+            <button id="btn1">一级按钮</button>
+            名字:<input type="text">
+            <button id="btn2">克隆</button><br>
+            <button id="btn3">二级按钮</button>
+            <button id="btn4">克隆</button><br>
+            按钮类型：<select name="btn5">
+                <option value="">--请选择--</option>
+                <option value="2">游戏</option>
+                <option value="3">音乐</option>
+                <option value="4">旅行</option>
+            </select><br>
+            二级按钮名字：<input type="text" name="two_btn_name"><br>
+            二级按钮url：<input type="text" name="two_btn_url"><br>
+            二级按钮名字key：<input type="text" name="two_btn_key">
+        </p>
     </div>
 @endsection
 @section('footer')
