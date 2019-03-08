@@ -685,5 +685,11 @@ class WeixinController extends Controller
 
     }
 
+    public function submit(){
+        $data = [
+            'title'=>'微信'
+        ];
+        return view('weixin.submit',$data);
+    }
 
 }
