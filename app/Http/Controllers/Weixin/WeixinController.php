@@ -675,11 +675,11 @@ class WeixinController extends Controller
 
     }
 
-    public function submit(){
+    public function Create(){
         $data = [
             'title'=>'自定义菜单'
         ];
-        return view('weixin.submit',$data);
+        return view('weixin.create',$data);
     }
 
     public function createmenuaction(Request $request){

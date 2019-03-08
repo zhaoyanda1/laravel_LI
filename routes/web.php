@@ -119,6 +119,6 @@ Route::get('/weixin/getcode','Weixin\WeixinController@getCode');        //接收
 Route::get('/weixin/jssdk/test','Weixin\WeixinController@jssdkTest');       // 测试
 
 
-Route::get('/weixin/submit','Weixin\WeixinController@submit');
+Route::get('/weixin/create','Weixin\WeixinController@Create');
 Route::post('/weixin/createmenuaction','Weixin\WeixinController@createmenuaction');
 
