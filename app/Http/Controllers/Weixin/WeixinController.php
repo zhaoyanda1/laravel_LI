@@ -686,7 +686,17 @@ class WeixinController extends Controller
     }
 
     public function submit(){
+        $jsconfig = [
+            'appid' => env('WEIXIN_APPID'),        //APPID
+            'timestamp' => time(),
+            'noncestr'    => str_random(10),
+            //'sign'      => $this->wxJsConfigSign()
+        ];
+
+        $sign = $this->wxJsConfigSign($jsconfig);
+        $jsconfig['sign'] = $sign;
         $data = [
+            'jsconfig'=>$jsconfig,
             'title'=>'微信'
         ];
         return view('weixin.submit',$data);
