@@ -122,3 +122,6 @@ Route::get('/weixin/jssdk/test','Weixin\WeixinController@jssdkTest');       // æ
 Route::get('/weixin/create','Weixin\WeixinController@Create');
 Route::post('/weixin/createmenuaction','Weixin\WeixinController@createmenuaction');
 
+Route::post('reg','Api\ApiController@reg');
+
+Route::post('login','Api\ApiController@login');

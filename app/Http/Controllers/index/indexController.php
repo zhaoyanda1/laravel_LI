@@ -16,7 +16,7 @@ class indexController extends Controller
      * liruixiang
      */
     public function index(){
-        return 111;
+        //return 111;
         if(request()->isMethod('post')){
             $user=request()->input('u_name');
             $pwd=request()->input('u_pwd');
