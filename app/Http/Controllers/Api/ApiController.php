@@ -2,15 +2,17 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
+
 use App\Http\Controllers\Controller;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Request;
+
 class ApiController extends Controller
 {
     public function reg(Request $request){
         $user_name = $request->input('user_name');
         $user_pwd = $request->input('user_pwd');
-        echo 111;die; 
+        echo $user_name;die;
 //        return json_encode(
 //            [
 //                'status'=>1,
