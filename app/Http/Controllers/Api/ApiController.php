@@ -10,6 +10,7 @@ class ApiController extends Controller
     public function reg(Request $request){
         $user_name = $request->input('user_name');
         $user_pwd = $request->input('user_pwd');
+        echo $user_name;die;
 //        return json_encode(
 //            [
 //                'status'=>1,
