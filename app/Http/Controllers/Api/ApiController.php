@@ -10,7 +10,12 @@ class ApiController extends Controller
     public function reg(Request $request){
         $user_name = $request->input('user_name');
         $user_pwd = $request->input('user_pwd');
-
+        return json_encode(
+            [
+                'status'=>1,
+                'msg'=>'该用户已被注册，请换个重试！'
+            ]
+        );
         $user = DB::table('api_user')->where(['user_name'=>$user_name])->first();
         if($user){
             return json_encode(
@@ -45,12 +50,7 @@ class ApiController extends Controller
     public function login(Request $request){
         $user_name = $request->input('user_name');
         $user_pwd = $request->input('user_pwd');
-        return json_encode(
-            [
-                'status'=>1000,
-                'msg'=>'登录成功'
-            ]
-        );
+
         $res = DB::table('api_user')->where(['user_name'=>$user_name,'user_pwd'=>$user_pwd])->first();
         if($res){
             return json_encode(
@@ -79,7 +79,7 @@ class ApiController extends Controller
             'user_name'=>$user_name,
             'user_pwd'=>$user_pwd
         ];
-        $url = 'http://xnj.hz4155.cn/login';
+        $url = 'http://fcz.96myshop.cn/login';
         //初始化
         $curl = curl_init();
 //设置抓取的url
