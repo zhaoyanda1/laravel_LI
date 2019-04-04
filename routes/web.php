@@ -126,5 +126,5 @@ Route::post('/weixin/createmenuaction','Weixin\WeixinController@createmenuaction
 Route::post('login','Api\ApiController@login');
 
 
-Route::get('/key','Key\KeyController@key');
+Route::get('openssl','Key\KeyController@openssl');
 Route::get('/encode','Key\KeyController@encode');

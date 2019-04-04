@@ -10,7 +10,7 @@ namespace App\Http\Controllers\Key;
 use App\Http\Controllers\Controller;
 class KeyController
 {
-   public function key(){
+   public function openssl(){
        $private_key = "/tmp/openssl/rsa_private.pem";
        $pblic_key = "/tmp/openssl/rsa_public.pem";
 
