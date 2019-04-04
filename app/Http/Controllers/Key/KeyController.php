@@ -7,6 +7,7 @@
  * Time: 18:08
  */
 namespace App\Http\Controllers\Key;
+use Illuminate\Support\Facades\DB;
 use App\Http\Controllers\Controller;
 class KeyController
 {
