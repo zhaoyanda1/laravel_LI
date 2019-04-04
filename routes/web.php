@@ -125,3 +125,7 @@ Route::post('/weixin/createmenuaction','Weixin\WeixinController@createmenuaction
 Route::post('reg','Api\ApiController@reg');
 
 Route::post('login','Api\ApiController@login');
+
+
+//存密钥公钥
+Route::post('key','Key\KeyController@key');
