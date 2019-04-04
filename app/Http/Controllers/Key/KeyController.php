@@ -11,8 +11,8 @@ use App\Http\Controllers\Controller;
 class KeyController
 {
     public function key(){
-        //$private_key = "/tmp/openssl/rsa_private.pem";
-       // $pblic_key = "/tmp/openssl/rsa_public.pem";
+        $private_key = "/tmp/openssl/rsa_private.pem";
+        $pblic_key = "/tmp/openssl/rsa_public.pem";
 
         $privatekey=openssl_pkey_get_private(file_get_contents($private_key));
 

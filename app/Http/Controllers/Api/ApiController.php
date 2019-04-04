@@ -10,92 +10,31 @@ use Illuminate\Support\Facades\DB;
 
 class ApiController extends Controller
 {
-    public function reg(Request $request){
-        $user_name = $request->input('user_name');
-        $user_pwd = $request->input('user_pwd');
-        $user = DB::table('api_user')->where(['user_name'=>$user_name])->first();
-        if($user){
-            return json_encode(
-                [
-                    'status'=>1,
-                    'msg'=>'该用户已被注册，请换个重试！'
-                ]
-            );
-        }
-
-        $res = DB::table('api_user')->insert(['user_name'=>$user_name,'user_pwd'=>$user_pwd]);
-        if($res){
-            return json_encode(
-                [
-                    'status'=>1000,
-                    'msg'=>'注册成功'
-                ]
-            );
-        }else{
-            return json_encode(
-                [
-                    'status'=>1,
-                    'msg'=>'注册失败'
-                ]
-            );
-        }
-
-
-
-    }
-
     public function login(Request $request){
-        $user_name = $request->input('user_name');
-        $user_pwd = $request->input('user_pwd');
-
-        $res = DB::table('api_user')->where(['user_name'=>$user_name,'user_pwd'=>$user_pwd])->first();
-        if($res){
-            return json_encode(
-                [
-                    'status'=>1000,
-                    'msg'=>'登录成功'
-                ]
-            );
-        }else{
-            return json_encode(
-                [
-                    'status'=>1,
-                    'msg'=>'账号或密码错误'
-                ]
-            );
-        }
-
-
-
-    }
-
-    public function api_login(Request $request){
-        $user_name = $request->input('user_name');
-        $user_pwd = $request->input('user_pwd');
+        //  echo 111;
+        //    exit;
+        $name = $request->input('u_name');
+        $password=$request->input('u_pwd');
         $data = [
-            'user_name'=>$user_name,
-            'user_pwd'=>$user_pwd
+            'u_name'    =>  $name,
+            'u_pwd'     =>  $password
         ];
-        $url = 'http://fcz.96myshop.cn/login';
-        //初始化
-        $curl = curl_init();
-//设置抓取的url
-        curl_setopt($curl, CURLOPT_URL,$url);
-//设置头文件的信息作为数据流输出
-        curl_setopt($curl, CURLOPT_HEADER, false);
-//设置获取的信息以文件流的形式返回，而不是直接输出。
-        curl_setopt($curl, CURLOPT_RETURNTRANSFER, 1);
-//设置post方式提交
-        curl_setopt($curl, CURLOPT_POST, 1);
+        //$url = 'http://passport.lara.com/api/login';
+        $url = 'http://pass.hz4155.cn/api/login';
+        $ch = curl_init($url);
+        curl_setopt($ch,CURLOPT_HEADER,0);
+        curl_setopt($ch,CURLOPT_RETURNTRANSFER,1);
+        curl_setopt($ch,CURLOPT_POST,1);
+        curl_setopt($ch,CURLOPT_POSTFIELDS,$data);
+        $response = curl_exec($ch);
+        curl_close($ch);
+        $response = json_decode($response,true);
 
-        curl_setopt($curl, CURLOPT_POSTFIELDS, $data);
-//执行命令
-        $encode = curl_exec($curl);
-//关闭URL请求
-        curl_close($curl);
-//显示获得的数据
 
-        return $encode;
+        return $response;
+
+
 
     }
+
 }
