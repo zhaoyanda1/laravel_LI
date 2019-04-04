@@ -10,27 +10,38 @@ namespace App\Http\Controllers\Key;
 use App\Http\Controllers\Controller;
 class KeyController
 {
-    public function key(){
-        $private_key = "/tmp/openssl/rsa_private.pem";
-        $pblic_key = "/tmp/openssl/rsa_public.pem";
+   public function key(){
+       $private_key = "/tmp/openssl/rsa_private.pem";
+       $pblic_key = "/tmp/openssl/rsa_public.pem";
 
-        $privatekey=openssl_pkey_get_private(file_get_contents($private_key));
+       $privatekey=file_get_contents($private_key);
+       $publickey = file_get_contents($pblic_key);
 
-        $publickey = openssl_pkey_get_public(file_get_contents($pblic_key));
-
-        $content = "这是原始文件";
+       $data=[
+           'privatekey'=>$privatekey,
+           'publickey'=>$publickey
+       ];
+       DB::table('key')->insert($data);
+   }
+    public function encode(){
+        $key=DB::table('key')->first();
+        $private_key=$key->private;
+        $privatekey=openssl_pkey_get_private($private_key);
+        $content="雅诗阁";
         $encryptData="";
-        $go="";
         openssl_private_encrypt($content,$encryptData,$privatekey);
-
         $content = base64_encode($encryptData);
-
-
-
-
-        $content = base64_decode($content);
-        openssl_public_decrypt($content,$go,$publickey);
-
+        echo $content;
+        $this->decode($content);
+    }
+    public function decode($content){
+        $key=DB::table('key')->first();
+        $public_key=$key->public;
+        $go="";
+        $publickey=openssl_pkey_get_public($public_key);
+        $content = base64_encode($content);
+        openssl_private_encrypt($content,$encryptData,$publickey);
         echo $go;
     }
+
 }
