@@ -8,6 +8,7 @@
  */
 namespace App\Http\Controllers\Key;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 class KeyController
 {
@@ -19,16 +20,17 @@ class KeyController
        $publickey = file_get_contents($pblic_key);
 
        $data=[
-           'privatekey'=>$privatekey,
-           'publickey'=>$publickey
+           'private'=>$privatekey,
+           'public'=>$publickey
        ];
        DB::table('key')->insert($data);
    }
-    public function encode(){
+    public function encode(Request $request){
+
         $key=DB::table('key')->first();
         $private_key=$key->private;
         $privatekey=openssl_pkey_get_private($private_key);
-        $content="雅诗阁";
+        $content=$request->input('name');
         $encryptData="";
         openssl_private_encrypt($content,$encryptData,$privatekey);
         $content = base64_encode($encryptData);
@@ -40,8 +42,8 @@ class KeyController
         $public_key=$key->public;
         $go="";
         $publickey=openssl_pkey_get_public($public_key);
-        $content = base64_encode($content);
-        openssl_private_encrypt($content,$encryptData,$publickey);
+        $content = base64_decode($content);
+        openssl_public_encrypt($content,$go,$publickey);
         echo $go;
     }
 

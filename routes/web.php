@@ -128,3 +128,5 @@ Route::post('login','Api\ApiController@login');
 
 Route::get('openssl','Key\KeyController@openssl');
 Route::get('/encode','Key\KeyController@encode');
+
+Route::post('/loginll','Api\ApiController@loginll');

@@ -36,5 +36,31 @@ class ApiController extends Controller
 
 
     }
+    //前台登陆接口
+    public function loginll(Request $request){
+        $data=$request->input();
+        $user_tel=$data['user_tel'];
+        $user_pwd=$data['user_pwd'];
+        $arr=[
+            'user_tel'=>$user_tel,
+            'user_pwd'=>md5($user_pwd),
+        ];
+        $arrUser=UserModel::where($arr)->first();
+        if($arrUser){
+            $user_id=$arrUser->user_id;
+            $user_tel=$arrUser->user_tel;
+            session(['user_id'=>$user_id,'user_tel'=>$user_tel]);
+            return json_encode([
+                'code'=>1,
+                'msg'=>'登陆成功',
+                'user_id'=>$user_id
+            ]);
+        }else{
+            return json_encode([
+                'code'=>0,
+                'msg'=>'登陆失败'
+            ]);
+        }
+    }
 
 }
